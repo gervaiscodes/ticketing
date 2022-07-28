@@ -14,8 +14,7 @@
   "author": "",
   "license": "ISC",
   "publishConfig": {
-    "access": "public",
-    "@ticketing:registry": "https://1337148.com/api/v4/projects/10/packages/npm/"
+    "@ticketing:registry": "https://1337148.com/api/v4/projects/14/packages/npm/"
   },
   "devDependencies": {
     "@semantic-release/git": "^10.0.1",
