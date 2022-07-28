@@ -4,6 +4,6 @@ build:
   services:
     - docker:20.10.16-dind
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build -t $CI_REGISTRY/ticketing/auth:latest .
-    - docker push $CI_REGISTRY/ticketing/auth:latest
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD 1337148.com:5050
+    - docker build -t 1337148.com:5050/ticketing/auth:latest .
+    - docker push 1337148.com:5050/ticketing/auth:latest
