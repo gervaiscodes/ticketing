@@ -4,8 +4,7 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm config set @ticketing:registry https://1337148.com/api/v4/projects/14/packages/npm/
-RUN npm config set -- '//1337148.com/api/v4/projects/14/packages/npm/:_authToken' "LciQrsnY_hc_Xc_5J7aP"
+RUN npm config set -- '//1337148.com/api/v4/projects/14/packages/npm/:_authToken' "j_8L-4H3pVR7AYJy-tA3"
 
 RUN npm install --only=prod
 
