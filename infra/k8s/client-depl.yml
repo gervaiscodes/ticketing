@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
       - name: client
-        image: 1337148.com:5050/udemy-microservices/ticketing/client
+        image: 1337148.com:5050/ticketing/client
