@@ -17,6 +17,7 @@ variables:
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  - echo "//1337148.com/api/v4/projects/14/packages/npm/:_authToken = $GITLAB_TOKEN" >> .npmrc
 
 build:
   stage: build
