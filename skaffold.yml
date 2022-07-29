@@ -8,24 +8,24 @@ build:
   local:
     push: false
   artifacts:
-    - image: 1337148.com:5050/udemy-microservices/ticketing/auth
-      context: auth
+    - image: 1337148.com:5050/ticketing/auth
+      context: ../auth
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: 1337148.com:5050/udemy-microservices/ticketing/client
-      context: client
+    - image: 1337148.com:5050/ticketing/client
+      context: ../client
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: 1337148.com:5050/udemy-microservices/ticketing/tickets
-      context: tickets
+    - image: 1337148.com:5050/ticketing/tickets
+      context: ../tickets
       docker:
         dockerfile: Dockerfile
       sync:
