@@ -12,6 +12,8 @@ build:
       context: ../auth
       docker:
         dockerfile: Dockerfile
+        buildArgs:
+          GITLAB_TOKEN: "{{.GITLAB_TOKEN}}"
       sync:
         manual:
           - src: 'src/**/*.ts'
@@ -28,6 +30,8 @@ build:
       context: ../tickets
       docker:
         dockerfile: Dockerfile
+        buildArgs:
+          GITLAB_TOKEN: "{{.GITLAB_TOKEN}}"
       sync:
         manual:
           - src: 'src/**/*.ts'
