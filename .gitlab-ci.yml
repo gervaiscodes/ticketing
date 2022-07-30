@@ -1,5 +1,8 @@
+image: docker:20.10.16
+services:
+  - docker:20.10.16-dind
+
 stages:
-  - test
   - build
   - release
 
@@ -10,34 +13,18 @@ variables:
   CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
   CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
 
-test:
-  stage: test
-  image: node:18
-  cache:
-    paths:
-      - node_modules/
-  script:
-    - npm config set -- '//1337148.com/api/v4/projects/14/packages/npm/:_authToken' ${GITLAB_TOKEN}
-    - npm install
-    - npm run test
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 build:
   stage: build
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE .
     - docker push $CONTAINER_TEST_IMAGE
 
 release-image:
   stage: release
-  image: docker:20.10.16
-  services:
-    - docker:20.10.16-dind
   script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
     - docker push $CONTAINER_RELEASE_IMAGE
