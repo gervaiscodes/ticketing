@@ -27,6 +27,8 @@ test:
   stage: test
   script:
     - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE ls ./node_modules/
+    - docker run $CONTAINER_TEST_IMAGE ls ./node_modules/.bin
     - docker run $CONTAINER_TEST_IMAGE npm run test-ci
 
 release-image:
