@@ -4,6 +4,7 @@ services:
 
 stages:
   - build
+  - test
   - release
 
 variables:
@@ -21,6 +22,14 @@ build:
   script:
     - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE .
     - docker push $CONTAINER_TEST_IMAGE
+
+test:
+  stage: test
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE -e GITLAB_TOKEN=$GITLAB_TOKEN npm config set -- '//1337148.com/api/v4/projects/14/packages/npm/:_authToken' $GITLAB_TOKEN
+    - docker run $CONTAINER_TEST_IMAGE npm install
+    - docker run $CONTAINER_TEST_IMAGE npm test
 
 release-image:
   stage: release
