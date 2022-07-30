@@ -1,4 +1,3 @@
-// @ts-ignore:next-line
 import { ValidationError } from 'express-validator'
 import { CustomError } from './custom-error'
 
