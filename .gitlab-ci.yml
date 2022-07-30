@@ -27,7 +27,7 @@ test:
   stage: test
   script:
     - docker pull $CONTAINER_TEST_IMAGE
-    - docker run $CONTAINER_TEST_IMAGE npm run test
+    - docker run $CONTAINER_TEST_IMAGE npm run test-ci
 
 release-image:
   stage: release
