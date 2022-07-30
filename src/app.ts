@@ -4,7 +4,9 @@ import 'express-async-errors'
 import { json } from 'body-parser'
 import cookieSession from 'cookie-session'
 
-import { NotFoundError, errorHandler } from '@ticketing/common'
+import { NotFoundError, errorHandler, currentUser } from '@ticketing/common'
+
+import { createTicketRouter } from './routes/new'
 
 const app = express()
 app.set('trust proxy', true)
@@ -15,6 +17,9 @@ app.use(
     secure: process.env.NODE_ENV !== 'test'
   })
 )
+app.use(currentUser)
+
+app.use(createTicketRouter)
 
 app.all ('*', () => {
   throw new NotFoundError()
