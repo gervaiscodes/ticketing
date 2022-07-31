@@ -6,7 +6,6 @@ stages:
   - build
   - test
   - release
-  - deploy
 
 variables:
   # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
@@ -23,6 +22,12 @@ build:
   script:
     - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE .
     - docker push $CONTAINER_TEST_IMAGE
+
+test:
+  stage: test
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE npm run test
 
 release-image:
   stage: release
