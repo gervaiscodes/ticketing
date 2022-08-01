@@ -1,7 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server'
 import mongoose from 'mongoose'
 import request from 'supertest'
-import { MongoClient } from 'mongodb'
 
 import { app } from '../app'
 
@@ -9,16 +8,15 @@ declare global {
   function getAuthCookie(): Promise<string[]>
 }
 
-let mongoClient: MongoClient
-let mongoServer: MongoMemoryServer
+let mongo: any
 
 beforeAll(async () => {
   process.env.JWT_KEY = 'asd'
 
-  mongoServer = await MongoMemoryServer.create()
-  const mongoUri = await mongoServer.getUri()
+  mongo = await MongoMemoryServer.create()
+  const mongoUri = await mongo.getUri()
 
-  mongoClient = await MongoClient.connect(mongoUri, {})
+  await mongoose.connect(mongoUri)
 })
 
 beforeEach(async () => {
@@ -30,13 +28,8 @@ beforeEach(async () => {
 })
 
 afterAll(async () => {
-  if (mongoClient) {
-    await mongoClient.close()
-  }
-
-  if (mongoServer) {
-    await mongoServer.stop()
-  }
+  await mongo.stop()
+  await mongoose.disconnect()
 })
 
 global.getAuthCookie = async () => {
