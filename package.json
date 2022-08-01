@@ -39,10 +39,5 @@
     "mongodb-memory-server": "^8.8.0",
     "supertest": "^6.2.4",
     "ts-jest": "^28.0.7"
-  },
-  "config": {
-    "mongodbMemoryServer": {
-      "debug": "1"
-    }
   }
 }
