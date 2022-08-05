@@ -31,7 +31,7 @@ build-auth:
   stage: build
   extends: .auth-config
   script:
-    - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./auth
+    - docker build --build-arg CI_JOB_TOKEN=$CI_JOB_TOKEN --build-arg CI_API_V4_URL=$CI_API_V4_URL --build-arg CI_PROJECT_ID=$CI_PROJECT_ID --pull -t $CONTAINER_TEST_IMAGE ./auth
     - docker push $CONTAINER_TEST_IMAGE
 
 test-auth:
@@ -66,7 +66,7 @@ build-tickets:
   stage: build
   extends: .tickets-config
   script:
-    - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./tickets
+    - docker build --build-arg CI_JOB_TOKEN=$CI_JOB_TOKEN --build-arg CI_API_V4_URL=$CI_API_V4_URL --build-arg CI_PROJECT_ID=$CI_PROJECT_ID --pull -t $CONTAINER_TEST_IMAGE ./tickets
     - docker push $CONTAINER_TEST_IMAGE
 
 test-tickets:
