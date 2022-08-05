@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { currentUser } from '@ticketing/common'
+import { currentUser } from '@jd/ticketing-common'
 
 const router = express.Router()
 

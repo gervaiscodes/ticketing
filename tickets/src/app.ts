@@ -4,7 +4,7 @@ import 'express-async-errors'
 import { json } from 'body-parser'
 import cookieSession from 'cookie-session'
 
-import { NotFoundError, errorHandler, currentUser } from '@ticketing/common'
+import { NotFoundError, errorHandler, currentUser } from '@jd/ticketing-common'
 
 import { createTicketRouter } from './routes/new'
 
