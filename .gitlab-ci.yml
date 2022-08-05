@@ -136,6 +136,8 @@ release-common:
   variables:
     NPM_TOKEN: ${CI_JOB_TOKEN}
   script:
+    - wich
+    - echo $NPM_TOKEN
     - npm run build
     - npm run semantic-release
   rules:
