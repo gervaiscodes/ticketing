@@ -21,98 +21,98 @@ before_script:
 # AUTH
 #
 
-.auth-config:
-  variables:
-    IMAGE_NAME: $CI_REGISTRY_IMAGE/auth
-    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
-    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+# .auth-config:
+#   variables:
+#     IMAGE_NAME: $CI_REGISTRY_IMAGE/auth
+#     CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
+#     CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
 
-build-auth:
-  stage: build
-  extends: .auth-config
-  script:
-    - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./auth
-    - docker push $CONTAINER_TEST_IMAGE
+# build-auth:
+#   stage: build
+#   extends: .auth-config
+#   script:
+#     - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./auth
+#     - docker push $CONTAINER_TEST_IMAGE
 
-test-auth:
-  stage: test
-  extends: .auth-config
-  script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker run $CONTAINER_TEST_IMAGE npm run test:ci
+# test-auth:
+#   stage: test
+#   extends: .auth-config
+#   script:
+#     - docker pull $CONTAINER_TEST_IMAGE
+#     - docker run $CONTAINER_TEST_IMAGE npm run test:ci
 
-release-auth:
-  stage: release
-  extends: .auth-config
-  script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
-    - docker push $CONTAINER_RELEASE_IMAGE
-  only:
-    - main
+# release-auth:
+#   stage: release
+#   extends: .auth-config
+#   script:
+#     - docker pull $CONTAINER_TEST_IMAGE
+#     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+#     - docker push $CONTAINER_RELEASE_IMAGE
+#   only:
+#     - main
 
 
 #
 # TICKETS
 #
 
-.tickets-config:
-  variables:
-    IMAGE_NAME: $CI_REGISTRY_IMAGE/tickets
-    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
-    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+# .tickets-config:
+#   variables:
+#     IMAGE_NAME: $CI_REGISTRY_IMAGE/tickets
+#     CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
+#     CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
 
-build-tickets:
-  stage: build
-  extends: .tickets-config
-  script:
-    - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./tickets
-    - docker push $CONTAINER_TEST_IMAGE
+# build-tickets:
+#   stage: build
+#   extends: .tickets-config
+#   script:
+#     - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./tickets
+#     - docker push $CONTAINER_TEST_IMAGE
 
-test-tickets:
-  stage: test
-  extends: .tickets-config
-  script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker run $CONTAINER_TEST_IMAGE npm run test:ci
+# test-tickets:
+#   stage: test
+#   extends: .tickets-config
+#   script:
+#     - docker pull $CONTAINER_TEST_IMAGE
+#     - docker run $CONTAINER_TEST_IMAGE npm run test:ci
 
-release-tickets:
-  stage: release
-  extends: .tickets-config
-  script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
-    - docker push $CONTAINER_RELEASE_IMAGE
-  only:
-    - main
+# release-tickets:
+#   stage: release
+#   extends: .tickets-config
+#   script:
+#     - docker pull $CONTAINER_TEST_IMAGE
+#     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+#     - docker push $CONTAINER_RELEASE_IMAGE
+#   only:
+#     - main
 
 
 #
 # CLIENT
 #
 
-.client-config:
-  variables:
-    IMAGE_NAME: $CI_REGISTRY_IMAGE/client
-    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
-    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+# .client-config:
+#   variables:
+#     IMAGE_NAME: $CI_REGISTRY_IMAGE/client
+#     CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
+#     CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
 
-build-client:
-  stage: build
-  extends: .client-config
-  script:
-    - docker build --pull -t $CONTAINER_TEST_IMAGE ./client
-    - docker push $CONTAINER_TEST_IMAGE
+# build-client:
+#   stage: build
+#   extends: .client-config
+#   script:
+#     - docker build --pull -t $CONTAINER_TEST_IMAGE ./client
+#     - docker push $CONTAINER_TEST_IMAGE
 
-release-client:
-  stage: release
-  extends: .client-config
-  script:
-    - docker pull $CONTAINER_TEST_IMAGE
-    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
-    - docker push $CONTAINER_RELEASE_IMAGE
-  only:
-    - main
+# release-client:
+#   stage: release
+#   extends: .client-config
+#   script:
+#     - docker pull $CONTAINER_TEST_IMAGE
+#     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+#     - docker push $CONTAINER_RELEASE_IMAGE
+#   only:
+#     - main
 
 
 #
@@ -139,6 +139,7 @@ release-common:
   script:
     - pwd
     - echo $NPM_TOKEN
+    - cat .npmrc
     - npm run build
     - npm run semantic-release
   rules:
