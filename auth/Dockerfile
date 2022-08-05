@@ -6,7 +6,7 @@ COPY package.json .
 COPY .npmrc .
 
 ARG GITLAB_TOKEN
-RUN npm config set -- '//1337148.com/api/v4/projects/20/packages/npm/:_authToken' ${GITLAB_TOKEN}
+RUN npm config set -- "${CI_API_V4_URL#https?}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken" ${CI_JOB_TOKEN}
 
 RUN npm install
 
