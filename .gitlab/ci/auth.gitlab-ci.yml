@@ -1,3 +1,7 @@
+image: docker:20.10.16
+services:
+  - docker:20.10.16-dind
+
 .image_name_variables:
   variables:
     IMAGE_NAME: $CI_REGISTRY_IMAGE/auth
