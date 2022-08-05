@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - release
 
 include:
   - local: .gitlab/ci/*.gitlab-ci.yml
