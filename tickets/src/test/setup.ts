@@ -28,7 +28,7 @@ beforeEach(async () => {
 afterAll(async () => {
   await mongo.stop()
   await mongoose.disconnect()
-})
+}, 30000)
 
 global.getAuthCookie = () => {
   const payload = {
