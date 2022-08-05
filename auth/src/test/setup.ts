@@ -25,6 +25,10 @@ beforeEach(async () => {
   for(let collection of collections) {
     await collection.deleteMany({})
   }
+
+  jest.useFakeTimers({
+    legacyFakeTimers: true
+  })
 })
 
 afterAll(async () => {
