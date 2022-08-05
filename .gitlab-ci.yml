@@ -102,7 +102,7 @@ build-client:
     CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
   script:
-    - docker build --pull -t $CONTAINER_TEST_IMAGE .
+    - docker build --pull -t $CONTAINER_TEST_IMAGE ./client
     - docker push $CONTAINER_TEST_IMAGE
 
 release-client:
