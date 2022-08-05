@@ -91,21 +91,21 @@ release-tickets:
 # CLIENT
 #
 
-.client_config:
+.client-config:
   variables:
     CONTAINER_TEST_IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     CONTAINER_RELEASE_IMAGE: $CI_REGISTRY_IMAGE:latest
 
 build-client:
   stage: build
-  extends: .client_config
+  extends: .client-config
   script:
     - docker build --pull -t $CONTAINER_TEST_IMAGE ./client
     - docker push $CONTAINER_TEST_IMAGE
 
 release-client:
   stage: release
-  extends: .client_config
+  extends: .client-config
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
