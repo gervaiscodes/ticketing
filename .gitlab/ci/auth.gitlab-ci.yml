@@ -1,32 +1,32 @@
-image: docker:20.10.16
-services:
-  - docker:20.10.16-dind
-
-variables:
-  # Use TLS https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#tls-enabled
-  DOCKER_HOST: tcp://docker:2376
-  DOCKER_TLS_CERTDIR: "/certs"
-  IMAGE_NAME: $CI_REGISTRY_IMAGE/auth
-  CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
-  CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+.image_name_variables:
+  variables:
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/auth
+    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
+    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
 
 before_script:
   - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 
 build-auth:
   stage: build
+  extends:
+    - .image_name_variables
   script:
     - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./auth
     - docker push $CONTAINER_TEST_IMAGE
 
 test-auth:
   stage: test
+  extends:
+    - .image_name_variables
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker run $CONTAINER_TEST_IMAGE npm run test:ci
 
 release-auth:
   stage: release
+  extends:
+    - .image_name_variables
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
