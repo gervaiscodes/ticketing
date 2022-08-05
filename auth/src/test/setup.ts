@@ -26,7 +26,7 @@ beforeEach(async () => {
     await collection.deleteMany({})
   }
 
-  jest.setTimeout(30000)
+  jest.setTimeout(30000) // Fix "Exceeded timeout of 5000 ms for a hook"
 })
 
 afterAll(async () => {
