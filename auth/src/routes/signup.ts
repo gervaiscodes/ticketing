@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express'
 import { body } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
-import { BadRequestError, validateRequest } from '@ticketing/common'
+import { BadRequestError, validateRequest } from '@jd/ticketing-common'
 
 import { User } from '../models/user'
 
