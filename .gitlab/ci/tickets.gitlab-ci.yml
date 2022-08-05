@@ -1,36 +1,26 @@
-image: docker:20.10.16
-services:
-  - docker:20.10.16-dind
-
-before_script:
-  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-build-tickets:
-  stage: build
+.tickets-config:
   variables:
     IMAGE_NAME: $CI_REGISTRY_IMAGE/tickets
     CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
     CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+
+build-tickets:
+  stage: build
+  extends: .tickets-config
   script:
-    - docker build --build-arg GITLAB_TOKEN=$GITLAB_TOKEN --pull -t $CONTAINER_TEST_IMAGE ./tickets
+    - docker build --build-arg CI_JOB_TOKEN=$CI_JOB_TOKEN --build-arg CI_API_V4_URL=$CI_API_V4_URL --build-arg CI_PROJECT_ID=$CI_PROJECT_ID --pull -t $CONTAINER_TEST_IMAGE ./tickets
     - docker push $CONTAINER_TEST_IMAGE
 
 test-tickets:
   stage: test
-  variables:
-    IMAGE_NAME: $CI_REGISTRY_IMAGE/tickets
-    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
-    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+  extends: .tickets-config
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker run $CONTAINER_TEST_IMAGE npm run test:ci
 
 release-tickets:
   stage: release
-  variables:
-    IMAGE_NAME: $CI_REGISTRY_IMAGE/tickets
-    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
-    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+  extends: .tickets-config
   script:
     - docker pull $CONTAINER_TEST_IMAGE
     - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
