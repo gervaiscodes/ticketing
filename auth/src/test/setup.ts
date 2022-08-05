@@ -25,14 +25,12 @@ beforeEach(async () => {
   for(let collection of collections) {
     await collection.deleteMany({})
   }
-
-  jest.setTimeout(30000) // Fix "Exceeded timeout of 5000 ms for a hook"
 })
 
 afterAll(async () => {
   await mongo.stop()
   await mongoose.disconnect()
-})
+}, 30000)
 
 global.getAuthCookie = async () => {
   const email = 'test@test.com'
