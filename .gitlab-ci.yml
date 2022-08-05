@@ -126,6 +126,7 @@ release-common:
   stage: release
   image: node:latest
   before_script:
+    - cd common
     - npm ci --cache .npm --prefer-offline
     - |
       {
