@@ -13,7 +13,9 @@ build:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          GITLAB_TOKEN: "{{.GITLAB_TOKEN}}"
+          CI_JOB_TOKEN: "{{.GITLAB_TOKEN}}"
+          CI_API_V4_URL: "https://1337148.com/api/v4"
+          CI_PROJECT_ID: "20"
       sync:
         manual:
           - src: 'src/**/*.ts'
@@ -31,7 +33,9 @@ build:
       docker:
         dockerfile: Dockerfile
         buildArgs:
-          GITLAB_TOKEN: "{{.GITLAB_TOKEN}}"
+          CI_JOB_TOKEN: "{{.GITLAB_TOKEN}}"
+          CI_API_V4_URL: "https://1337148.com/api/v4"
+          CI_PROJECT_ID: "20"
       sync:
         manual:
           - src: 'src/**/*.ts'
