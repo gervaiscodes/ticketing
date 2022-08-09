@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: tickets
-        image: 1337148.com:5050/ticketing/tickets
+        image: 1337148.com:5050/jd/ticketing/tickets
         env:
           - name: MONGO_URI
             value: mongodb://tickets-mongo-srv:27017/tickets
