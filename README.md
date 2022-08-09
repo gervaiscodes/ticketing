@@ -53,7 +53,7 @@ Install Skaffold: https://skaffold.dev/docs/install/.
 Run Skaffold:
 
 ```bash
-skaffold debug
+skaffold dev
 ```
 
 ### Access Application
