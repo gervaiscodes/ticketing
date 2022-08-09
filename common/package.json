@@ -5,7 +5,7 @@
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
-    "clean": "./node_modules/del-cli/cli.js ./build/*",
+    "clean": "./node_modules/.bin/del-cli ./build/*",
     "build": "npm run clean && ./node_modules/typescript/bin/tsc",
     "pub": "npm version patch && npm run build && npm publish",
     "semantic-release": "semantic-release"
