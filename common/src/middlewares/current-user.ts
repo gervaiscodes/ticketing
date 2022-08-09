@@ -24,7 +24,7 @@ export const currentUser = (req: Request, res: Response, next: NextFunction) => 
     const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!) as UserPayload
     req.currentUser = payload
   } catch {
-
+    console.log('Wrong JWT')
   }
 
   next()
