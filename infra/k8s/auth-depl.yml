@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: auth
-        image: 1337148.com:5050/ticketing/auth
+        image: 1337148.com:5050/jd/ticketing/auth
         env:
           - name: MONGO_URI
             value: mongodb://auth-mongo-srv:27017/auth
