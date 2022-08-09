@@ -6,5 +6,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
     return res.status(err.statusCode).send({ errors: err.serializedErrors() })
   }
 
+  console.log(err)
+
   res.status(500).send({ errors: [{ message: 'Something went wrong' }] })
 }
