@@ -8,7 +8,7 @@ build:
   local:
     push: false
   artifacts:
-    - image: 1337148.com:5050/ticketing/auth
+    - image: 1337148.com:5050/jd/ticketing/auth
       context: ./auth
       docker:
         dockerfile: Dockerfile
@@ -18,7 +18,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: 1337148.com:5050/ticketing/client
+    - image: 1337148.com:5050/jd/ticketing/client
       context: ./client
       docker:
         dockerfile: Dockerfile
@@ -26,7 +26,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: 1337148.com:5050/ticketing/tickets
+    - image: 1337148.com:5050/jd/ticketing/tickets
       context: ./tickets
       docker:
         dockerfile: Dockerfile
