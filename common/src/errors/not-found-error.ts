@@ -7,7 +7,7 @@ export class NotFoundError extends CustomError {
   constructor() {
     super('Not found')
 
-    Object.setPrototypeOf(this, NotFoundError .prototype)
+    Object.setPrototypeOf(this, NotFoundError.prototype)
   }
 
   serializedErrors() {
