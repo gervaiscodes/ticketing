@@ -9,4 +9,3 @@ export abstract class CustomError extends Error {
 
   abstract serializedErrors(): { message: string, field?: string }[]
 }
-
