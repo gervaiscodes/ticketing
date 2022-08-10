@@ -44,7 +44,15 @@ Create a personnal access token: https://docs.gitlab.com/ee/user/profile/persona
 export GITLAB_TOKEN='1234'
 ```
 
-This is used to download dependencies (Docker and NPM)
+This is used by Skaffold to download dependencies (Docker and NPM).
+
+### NPM Config
+
+```bash
+npm config set -- '//1337148.com.com/api/v4/projects/20/packages/npm/:_authToken' "<gitlab token>"
+```
+
+This is used to install dependencies locally, for example to `npm run test`.
 
 ### Skaffold
 
