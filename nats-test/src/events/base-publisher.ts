@@ -1,5 +1,4 @@
-import { Message, Stan } from 'node-nats-streaming'
-import { resolve } from 'path'
+import { Stan } from 'node-nats-streaming'
 import { Subjects } from './subjects'
 
 interface Event {
