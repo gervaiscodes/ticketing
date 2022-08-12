@@ -5,6 +5,8 @@ import { Ticket } from '../models/ticket'
 import { Order } from '../models/order'
 import { NotFoundError, BadRequestError, OrderStatus } from '@jd/ticketing-common'
 
+const EXPIRATION_WINDOW_SECONDS = 15 * 60
+
 const router = express.Router()
 
 router.post('/api/orders', requireAuth, [
@@ -24,14 +26,22 @@ router.post('/api/orders', requireAuth, [
     throw new BadRequestError('Ticket is already reserved')
   }
 
-
   // Calculate an expiration date for this order
+  const expiration = new Date()
+  expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS)
 
   // Build the order and save it the database
+  const order = Order.build({
+    userId: req.currentUser!.id,
+    status: OrderStatus.Created,
+    expiresAt: expiration,
+    ticket
+  })
+  await order.save()
 
   // Publish an event
 
-  res.send({})
+  res.status(201).send(order)
 })
 
 export { router as newOrderRouter }
