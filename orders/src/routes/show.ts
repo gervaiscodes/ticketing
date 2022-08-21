@@ -4,7 +4,7 @@ import { requireAuth, NotFoundError, NotAuthorizedError } from '@jd/ticketing-co
 
 const router = express.Router()
 
-router.get('/api/orders/:oderId', requireAuth, async (req: Request, res: Response) => {
+router.get('/api/orders/:orderId', requireAuth, async (req: Request, res: Response) => {
   const order = await Order.findById(req.params.orderId).populate('ticket')
 
   if (!order) {
