@@ -24,7 +24,7 @@ it('fetches the order', async () => {
 
   // make a request to fetch the order
   const { body: fetchedOrder } = await request(app)
-    .post(`/api/orders/${order.id}`)
+    .get(`/api/orders/${order.id}`)
     .set('Cookie', user)
     .expect(200)
 
@@ -53,7 +53,7 @@ it('returns an error if trying to fetch another users order', async () => {
   // make a request to fetch the order
   const otherUser = global.getAuthCookie()
   const { body: fetchedOrder } = await request(app)
-    .post(`/api/orders/${order.id}`)
+    .get(`/api/orders/${order.id}`)
     .set('Cookie', otherUser)
     .expect(401)
 })
