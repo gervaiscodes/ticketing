@@ -54,6 +54,10 @@ npm config set -- '//1337148.com.com/api/v4/projects/20/packages/npm/:_authToken
 
 This is used to install dependencies locally, for example to `npm run test`.
 
+### Setup SSL
+
+https://minikube.sigs.k8s.io/docs/tutorials/custom_cert_ingress/
+
 ### Skaffold
 
 Install Skaffold: https://skaffold.dev/docs/install/.
@@ -64,6 +68,12 @@ Run Skaffold:
 skaffold dev
 ```
 
+### Start tunnel
+
+```bash
+minikube tunnel
+```
+
 ### Access Application
 
-http://ticketing.dev:8080
+https://ticketing.dev
