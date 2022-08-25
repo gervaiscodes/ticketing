@@ -19,4 +19,4 @@ git add ./tickets/package-lock.json
 git add ./orders/package.json
 git add ./orders/package-lock.json
 
-git commit -m "feat: update $1"
+git commit -m "Bump to $1"
