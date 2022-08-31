@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { natsWrapper } from './nats-wrapper'
-import { TicketCreatedListener } from './events/listerners/ticket-created-listener'
-import { TicketUpdatedListener } from './events/listerners/ticket-updated-listener'
+import { TicketCreatedListener } from './events/listeners/ticket-created-listener'
+import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener'
 
 import { app } from './app'
 
