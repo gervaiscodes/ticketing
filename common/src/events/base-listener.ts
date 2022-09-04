@@ -9,7 +9,7 @@ interface Event {
 export abstract class Listener<T extends Event> {
   abstract subject: T['subject']
   abstract queueGroupName: string
-  private client: Stan
+  protected client: Stan
   protected ackWait = 5 * 1000 // 5 sec
 
   constructor(client: Stan) {
