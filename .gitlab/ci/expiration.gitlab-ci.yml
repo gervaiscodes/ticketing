@@ -1,0 +1,29 @@
+.expiration-config:
+  variables:
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/expiration
+    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
+    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+
+build-expiration:
+  stage: build
+  extends: .expiration-config
+  script:
+    - docker build --build-arg CI_JOB_TOKEN=$CI_JOB_TOKEN --build-arg CI_API_V4_URL=$CI_API_V4_URL --build-arg CI_PROJECT_ID=$CI_PROJECT_ID --pull -t $CONTAINER_TEST_IMAGE ./expiration
+    - docker push $CONTAINER_TEST_IMAGE
+
+test-expiration:
+  stage: test
+  extends: .expiration-config
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE npm run test:ci
+
+release-expiration:
+  stage: release
+  extends: .expiration-config
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+  only:
+    - main
