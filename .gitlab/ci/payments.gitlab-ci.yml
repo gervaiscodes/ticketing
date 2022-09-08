@@ -1,0 +1,29 @@
+.payments-config:
+  variables:
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/payments
+    CONTAINER_TEST_IMAGE: $IMAGE_NAME:$CI_COMMIT_REF_SLUG
+    CONTAINER_RELEASE_IMAGE: $IMAGE_NAME:latest
+
+build-payments:
+  stage: build
+  extends: .payments-config
+  script:
+    - docker build --build-arg CI_JOB_TOKEN=$CI_JOB_TOKEN --build-arg CI_API_V4_URL=$CI_API_V4_URL --build-arg CI_PROJECT_ID=$CI_PROJECT_ID --pull -t $CONTAINER_TEST_IMAGE ./payments
+    - docker push $CONTAINER_TEST_IMAGE
+
+test-payments:
+  stage: test
+  extends: .payments-config
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker run $CONTAINER_TEST_IMAGE npm run test:ci
+
+release-payments:
+  stage: release
+  extends: .payments-config
+  script:
+    - docker pull $CONTAINER_TEST_IMAGE
+    - docker tag $CONTAINER_TEST_IMAGE $CONTAINER_RELEASE_IMAGE
+    - docker push $CONTAINER_RELEASE_IMAGE
+  only:
+    - main
