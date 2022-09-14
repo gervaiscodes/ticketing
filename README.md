@@ -34,6 +34,7 @@ kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 
 
 ```bash
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asd
+kubectl create secret generic stripe-secret --from-literal=STRIPE_SECRET_KEY=asd
 ```
 
 ### Gitlab Token
