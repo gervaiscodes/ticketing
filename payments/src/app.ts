@@ -6,6 +6,8 @@ import cookieSession from 'cookie-session'
 
 import { NotFoundError, errorHandler, currentUser } from '@jd/ticketing-common'
 
+import { createChargeRouter } from './routes/new'
+
 const app = express()
 app.set('trust proxy', true)
 app.use(json())
@@ -16,6 +18,8 @@ app.use(
   })
 )
 app.use(currentUser)
+
+app.use(createChargeRouter)
 
 app.all ('*', () => {
   throw new NotFoundError()
