@@ -1,6 +1,5 @@
 import { Message } from 'node-nats-streaming'
 import { Subjects, Listener, PaymentCreatedEvent, OrderStatus } from '@jd/ticketing-common'
-import { Ticket } from '../../models/ticket'
 import { queueGroupName } from './queue-group-name'
 import { Order } from '../../models/order'
 
@@ -21,6 +20,7 @@ export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
 
     // Not necessary to emit an order updated event here because this order should
     // not be updated in the future now it has been paid
+    // But ideally we should emit it, in case some other service want this info
 
     msg.ack()
   }
