@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 
 declare global {
-  function getAuthCookie(): string[]
+  function getAuthCookie(id?: string): string[]
 }
 
 let mongo: any
@@ -34,9 +34,9 @@ afterAll(async () => {
   await mongo.stop()
 }, 30000)
 
-global.getAuthCookie = () => {
+global.getAuthCookie = (id?: string) => {
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: id || new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com'
   }
   const token = jwt.sign(payload, process.env.JWT_KEY!)
