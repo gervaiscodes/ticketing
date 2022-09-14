@@ -14,7 +14,7 @@ cd expiration
 npm install $1
 cd ..
 
-cd expiration
+cd payments
 npm install $1
 cd ..
 
