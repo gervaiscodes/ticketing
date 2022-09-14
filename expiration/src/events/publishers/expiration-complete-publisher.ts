@@ -1,5 +1,5 @@
-import { Subjects, Publisher, ExpirationComplete } from '@jd/ticketing-common'
+import { Subjects, Publisher, ExpirationCompleteEvent } from '@jd/ticketing-common'
 
-export class ExpirationCompletePublisher extends Publisher<ExpirationComplete> {
+export class ExpirationCompletePublisher extends Publisher<ExpirationCompleteEvent> {
   subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete
 }
